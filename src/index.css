@@ -1,0 +1,313 @@
+@import "tailwindcss";
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f9fafb;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* App shell: the sidebar is fixed, so reserve its space only on desktop. */
+.admin-shell {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.admin-main {
+  flex: 1 1 auto;
+  width: calc(100% - 16rem);
+  min-width: 0;
+  margin-left: 16rem;
+}
+
+.admin-content {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: calc(100vh - 4rem);
+  overflow-wrap: normal;
+}
+
+.admin-sidebar {
+  width: 16rem;
+  max-width: 86vw;
+  min-width: 0;
+  overscroll-behavior: contain;
+}
+
+.admin-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: rgb(15 23 42 / 45%);
+}
+
+.admin-header {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.admin-header-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-header-actions {
+  min-width: 0;
+}
+
+.admin-search {
+  min-width: 0;
+}
+
+.admin-search input {
+  max-width: 100%;
+}
+
+/* Prevent grid/flex children from forcing the entire page wider than its viewport. */
+.admin-content > *,
+.admin-content section,
+.admin-content article,
+.admin-content form,
+.admin-content .grid,
+.admin-content .flex {
+  min-width: 0;
+}
+
+.admin-content img,
+.admin-content video,
+.admin-content canvas {
+  max-width: 100%;
+}
+
+.admin-content input,
+.admin-content select,
+.admin-content textarea {
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Wide data tables remain readable and scroll inside the content area. */
+.admin-content table {
+  max-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.admin-content .overflow-x-auto,
+.admin-content [class*="overflow-x-auto"] {
+  max-width: 100%;
+  min-width: 0;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.admin-content th,
+.admin-content td {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+@media (max-width: 1279px) {
+  .admin-content {
+    padding: 1.5rem !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .admin-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 40;
+    height: 100vh;
+    height: 100dvh;
+    width: min(18rem, 86vw);
+    max-width: 86vw;
+    transform: translateX(-105%);
+    visibility: hidden;
+    transition: transform 200ms ease, visibility 200ms ease;
+  }
+
+  .admin-sidebar.is-mobile-open {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .admin-main {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  .admin-header {
+    left: 0 !important;
+    right: 0;
+    width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .admin-header-left {
+    flex: 0 0 auto;
+  }
+
+  .admin-header-spacer {
+    display: none;
+  }
+
+  .admin-header-title {
+    flex: 1 1 auto;
+    text-align: left;
+    font-size: 1rem;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .admin-header-actions {
+    flex: 0 1 auto;
+    gap: 0.5rem !important;
+  }
+
+  .admin-search input {
+    width: clamp(7rem, 22vw, 14rem);
+  }
+
+  .admin-profile {
+    padding: 0.25rem !important;
+    gap: 0 !important;
+    flex: 0 0 auto;
+  }
+
+  .admin-profile > div:last-child {
+    display: none;
+  }
+
+  .admin-content {
+    padding: 1.25rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-header {
+    height: 3.75rem;
+  }
+
+  .admin-header-title {
+    font-size: 0.9rem;
+  }
+
+  .admin-header-actions {
+    gap: 0.35rem !important;
+  }
+
+  .admin-search input {
+    width: clamp(5.5rem, 28vw, 8rem);
+    padding-left: 2rem;
+    padding-right: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .admin-search svg {
+    left: 0.6rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    top: 0.55rem;
+  }
+
+  /* Keep the profile icon visible; hide only its text label on compact screens. */
+  .admin-profile {
+    display: flex !important;
+    padding: 0.2rem !important;
+  }
+
+  .admin-content {
+    margin-top: 3.75rem !important;
+    padding: 0.875rem !important;
+    min-height: calc(100dvh - 3.75rem);
+  }
+
+  .admin-content h1 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  .admin-content h2 {
+    font-size: 1.1rem;
+  }
+
+  .admin-content .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0;
+  }
+
+  .admin-content .rounded-2xl,
+  .admin-content .rounded-xl {
+    min-width: 0;
+  }
+
+  .admin-content table {
+    min-width: 680px;
+  }
+
+  .admin-content th,
+  .admin-content td {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .admin-content .fixed.inset-0 {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 0.75rem;
+  }
+
+  .admin-content button {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
